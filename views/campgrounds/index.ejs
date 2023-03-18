@@ -1,0 +1,77 @@
+<% layout('layouts/boilerplate')%>
+<div id="cluster-map"></div>
+<div class="container">
+<!-- <h1>All Campgrounds</h1> -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<div class="container">
+    <br/>
+	<div class="row justify-content-center">
+                        <div class="col-50 col-md-50 col-lg-50">
+                            <form action="/campgrounds/search" method="post" class="card card-sm" >
+                                <div class="card-body row no-gutters align-items-center">
+                                    <!-- <div class="col-auto">
+                                        <i class="fas fa-search h4 text-body"></i>
+                                    </div> -->
+                                    <div class="col-auto"></div>
+                                    <!--end of col-->
+                                    <div class="col">
+                                        <input class="form-control form-control-lg form-control-borderless" type="search" name="search" id="search" placeholder="Search campgrounds">
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        <button class="btn btn-lg btn-success" type="submit">Search</button>
+                                    </div>
+                                    <!--end of col-->
+                                </div>
+                            </form>
+                        </div>
+                        <!--end of col-->
+                    </div>
+</div>
+<br>
+<br>
+<% for (let campground of campgrounds){%>
+<div class="card mb-3" >
+    <div class="row">
+        <div class="col-md-4">
+            <%if(campground.images.length) {%>
+            <img class="img-fluid" alt="" src="<%=campground.images[0].url%>">
+            <% }else {%>
+            <img class="img-fluid" alt=""
+                src="https://res.cloudinary.com/douqbebwk/image/upload/v1600103881/YelpCamp/lz8jjv2gyynjil7lswf4.png">
+            <% } %>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title"><%= campground.title %> </h5>
+
+                <p class="card-text"><%= campground.description %></p>
+                <p class="card-text">
+                    <small class="text-muted"><%= campground.location%></small>
+                </p>
+                <div class="p-2">
+                    <% let average = 0; %>
+                    <% for (let i = 0 ; i < campground.rating.length ; i++){%>
+                        <%average+=campground.rating[i];%>
+                    <%}%>
+                    
+                    <%=average/campground.rating.length%>
+                </div>
+                <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>">View <%=campground.title%></a>
+            </div>
+        </div>
+    </div>
+</div>
+<% }%>
+</div>
+<script>
+    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    const campgrounds = { features: <%- JSON.stringify(campgrounds) %>}
+</script>
+
+<script src="/javascripts/clusterMap.js"></script>
