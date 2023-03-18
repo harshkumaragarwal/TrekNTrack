@@ -5,6 +5,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/stylesheets/stars.css">
 <!------ Include the above in your HEAD tag ---------->
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -54,13 +55,17 @@
                 <p class="card-text">
                     <small class="text-muted"><%= campground.location%></small>
                 </p>
-                <div class="p-2">
+                <div class="text-end">
                     <% let average = 0; %>
                     <% for (let i = 0 ; i < campground.rating.length ; i++){%>
                         <%average+=campground.rating[i];%>
                     <%}%>
+                    <%if(campground.rating.length){%>
+                    <p class="starability-result" data-rating="<%=average/campground.rating.length%>">
+                        Rated: <%=average/campground.rating.length %> stars
+                    </p>
+                     <%}%>
                     
-                    <%=average/campground.rating.length%>
                 </div>
                 <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>">View <%=campground.title%></a>
             </div>
