@@ -1,5 +1,6 @@
 const Campground = require("../models/campground");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const axios = require('axios') 
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
@@ -42,14 +43,27 @@ module.exports.showCampground = async (req, res) => {
       },
     })
     .populate("author");
+  
+  const place = campground.location;
+  const response = await axios(
+ 
+  `https://api.weatherapi.com/v1/current.json?q=${place}&aqi=no&key=1b8676ab83734bf88d592311210410`
+  );
+  
+  
+  const temp_c = response.data.current.temp_c;
+  const temp_f = response.data.current.temp_f;
+  const i = response.data.current.condition.icon;
+  
+
   if (!campground) {
     req.flash("error", "Cannot find that campground!");
     return res.redirect("/campgrounds");
   }
   
-  res.render("campgrounds/show", { campground });
+  res.render("campgrounds/show", { campground,temp_c,temp_f,i});
 };
-
+//
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
   const campground = await Campground.findById(id);
@@ -91,10 +105,15 @@ module.exports.deleteCampground = async (req, res) => {
 module.exports.search = async (req, res) => {
   const { search } = req.body;
   const campgrounds = await Campground.find({
-    title: {
+     "$or": [
+    {title: {
       $regex: search,
       $options: "i",
-    },
+    }},
+    {location: {
+      $regex: search,
+      $options: "i",}
+    }]
   });
   res.render("campgrounds/index", { campgrounds });
 };
