@@ -11,7 +11,16 @@
                 <a class="nav-link" href="/campgrounds">Campgrounds</a>
                 <a class="nav-link" href="/campgrounds/new">New Campground</a>
             </div>
+           
             <div class="navbar-nav ml-auto">
+                <form class="form-inline my-2 my-lg-0" action="/campgrounds/search" method="post">
+                    <input class="form-control mr-sm-2" type="search" name="search" id="search" placeholder="Search Campgrounds " aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
+                </form>
+                
+                            
+                    
+                &emsp; 
                 <% if(!currentUser) {%>
                 <a class="nav-link" href="/login">Login</a>
                 <a class="nav-link" href="/register">Register</a>
