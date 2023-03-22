@@ -45,9 +45,8 @@
                         <%average+=campground.rating[i];%>
                     <%}%>
                     <%if(campground.rating.length){%>
-                    <p class="starability-result" data-rating="<%=average/campground.rating.length%>">
-                        Rated: <%=average/campground.rating.length %> stars
-                    </p>
+                    
+                    <i data-star="<%=average/campground.rating.length%>"></i>
                      <%}%>
                     
                 </div>
