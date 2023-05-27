@@ -28,6 +28,8 @@ module.exports.createCampground = async (req, res, next) => {
     url: f.path,
     filename: f.filename,
   }));
+  campground.impressionCount = 0;
+  console.log(campground.impressionCount);
   campground.author = req.user._id;
   await campground.save();
   req.flash("success", "Successfully made a new campground!");
@@ -43,7 +45,11 @@ module.exports.showCampground = async (req, res) => {
       },
     })
     .populate("author");
-  
+  const { id } = req.params;
+  const campgrounds = await Campground.findByIdAndUpdate(id, {
+    impressionCount : campground.impressionCount + 1
+  });
+  await campgrounds.save();
   const place = campground.location;
   const response = await axios(
  
