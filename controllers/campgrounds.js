@@ -11,6 +11,17 @@ module.exports.index = async (req, res) => {
   res.render("campgrounds/index", { campgrounds });
 };
 
+module.exports.indexSorted = async (req, res) => {
+  const sortedArr = await Campground.find({}).populate("popupText");
+  const campgrounds = sortedArr.sort((a, b) => b.avgRating - a.avgRating);
+  res.render("campgrounds/index", { campgrounds });
+};
+module.exports.impressionSorted = async (req, res) => {
+  const sortedArr = await Campground.find({}).populate("popupText");
+  const campgrounds = sortedArr.sort((a, b) => b.impressionCount - a.impressionCount);
+  res.render("campgrounds/index", { campgrounds });
+};
+
 module.exports.renderNewForm = (req, res) => {
   res.render("campgrounds/new");
 };

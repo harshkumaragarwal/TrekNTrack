@@ -60,13 +60,9 @@
                 </p>
                 </p>
                 <div class="text-end">
-                    <% let average = 0; %>
-                    <% for (let i = 0 ; i < campground.rating.length ; i++){%>
-                        <%average+=campground.rating[i];%>
-                    <%}%>
                     <%if(campground.rating.length){%>
                     
-                    <i data-star="<%=average/campground.rating.length%>"></i>
+                    <i data-star="<%=campground.avgRating%>"></i>
                      <%}%>
                     
                 </div>

@@ -1,4 +1,4 @@
-const express = require("express");
+  const express = require("express");
 const router = express.Router();
 const campgrounds = require("../controllers/campgrounds");
 const catchAsync = require("../utils/catchAsync");
@@ -18,6 +18,9 @@ router
     validateCampground,
     catchAsync(campgrounds.createCampground)
   );
+
+router.route("/ratingmax").get(catchAsync(campgrounds.indexSorted));
+router.route("/impressionmax").get(catchAsync(campgrounds.impressionSorted));
 
 router.post("/search", campgrounds.search);
 
