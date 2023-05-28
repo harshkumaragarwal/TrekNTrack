@@ -39,7 +39,6 @@ module.exports.createCampground = async (req, res, next) => {
     filename: f.filename,
   }));
   campground.impressionCount = 0;
-  console.log(campground.impressionCount);
   campground.author = req.user._id;
   await campground.save();
   req.flash("success", "Successfully made a new campground!");
@@ -79,7 +78,6 @@ module.exports.showCampground = async (req, res) => {
     req.flash("error", "Cannot find that campground!");
     return res.redirect("/campgrounds");
   }
-  console.log(wa);
   res.render("campgrounds/show", { campground, temp_c, temp_f, i,wa });
 };
 module.exports.renderEditForm = async (req, res) => {
