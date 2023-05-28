@@ -5,7 +5,6 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
 const Review = require("../models/review");
-
 module.exports.index = async (req, res) => {
   const campgrounds = await Campground.find({}).populate("popupText");
   res.render("campgrounds/index", { campgrounds });
@@ -57,30 +56,32 @@ module.exports.showCampground = async (req, res) => {
     })
     .populate("author");
   const { id } = req.params;
+  const url = "https://trekntrack.onrender.com/campgrounds/" + id;
+  const wa = "whatsapp://send?text=Come and check " + campground.title + " 🤗.\n" + "  Do comment and rate my camps😉.                 \n" +url;
+   
+
+
+
   const campgrounds = await Campground.findByIdAndUpdate(id, {
-    impressionCount : campground.impressionCount + 1
+    impressionCount: campground.impressionCount + 1,
   });
   await campgrounds.save();
   const place = campground.location;
   const response = await axios(
- 
-  `https://api.weatherapi.com/v1/current.json?q=${place}&aqi=no&key=1b8676ab83734bf88d592311210410`
+    `https://api.weatherapi.com/v1/current.json?q=${place}&aqi=no&key=1b8676ab83734bf88d592311210410`
   );
-  
-  
+
   const temp_c = response.data.current.temp_c;
   const temp_f = response.data.current.temp_f;
   const i = response.data.current.condition.icon;
-  
 
   if (!campground) {
     req.flash("error", "Cannot find that campground!");
     return res.redirect("/campgrounds");
   }
-  
-  res.render("campgrounds/show", { campground,temp_c,temp_f,i});
+  console.log(wa);
+  res.render("campgrounds/show", { campground, temp_c, temp_f, i,wa });
 };
-//
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
   const campground = await Campground.findById(id);

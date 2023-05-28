@@ -16,6 +16,8 @@
     "cloudinary": "^1.23.0",
     "connect-flash": "^0.1.1",
     "cookie-session": "^2.0.0",
+    "copy-button": "^2.0.1",
+    "copy-to-clipboard": "^3.3.3",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "ejs-mate": "^3.0.0",
@@ -28,6 +30,8 @@
     "multer-storage-cloudinary": "^4.0.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^6.0.1"
+    "passport-local-mongoose": "^6.0.1",
+    "share-text-to-whatsapp": "^1.0.2",
+    "whatsapp-url": "^0.0.4"
   }
 }
