@@ -56,7 +56,7 @@ module.exports.showCampground = async (req, res) => {
     .populate("author");
   const { id } = req.params;
   const url = "https://trekntrack.onrender.com/campgrounds/" + id;
-  const wa = "whatsapp://send?text=Come and check " + campground.title + " 🤗.\n" + "  Do comment and rate my camps😉.                 \n" +url;
+  const wa = "whatsapp://send?text=Come and check " + campground.title + " 🤗, a beautiful place😌. " + "Do comment and rate my camps😉.%0a" +url;
    
 
 
