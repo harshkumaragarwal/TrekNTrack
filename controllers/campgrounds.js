@@ -58,9 +58,10 @@ module.exports.showCampground = async (req, res) => {
     const host = req.hostname;
     const url = req.originalUrl;
     const port = process.env.PORT || PORT;
-    const fullUrl = `${protocol}://${host}:${port}${url}`;
+    const fullUrl = `${protocol}://${host}${url}`;
   const wa = "whatsapp://send?text=Come and check " + campground.title + " 🤗, a beautiful place😌. " + "Do comment and rate my camps😉.%0a" + fullUrl; 
-  const te ="Come and check " + campground.title +" 🤗, a beautiful place😌. " +"Do comment and rate my camps😉.%0a" +    fullUrl; 
+  const te = "Come and check " + campground.title + " 🤗, a beautiful place😌. " + "Do comment and rate my camps😉.%0a" + fullUrl;
+  console.log(fullUrl);
   const { id } = req.params;
   const campgrounds = await Campground.findByIdAndUpdate(id, {
     impressionCount: campground.impressionCount + 1,
