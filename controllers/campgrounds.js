@@ -59,7 +59,8 @@ module.exports.showCampground = async (req, res) => {
     const url = req.originalUrl;
     const port = process.env.PORT || PORT;
     const fullUrl = `${protocol}://${host}:${port}${url}`;
-  const wa = "whatsapp://send?text=Come and check " + campground.title + " 🤗, a beautiful place😌. " + "Do comment and rate my camps😉.%0a" +fullUrl;   
+  const wa = "whatsapp://send?text=Come and check " + campground.title + " 🤗, a beautiful place😌. " + "Do comment and rate my camps😉.%0a" + fullUrl; 
+  const te ="Come and check " + campground.title +" 🤗, a beautiful place😌. " +"Do comment and rate my camps😉.%0a" +    fullUrl; 
   const { id } = req.params;
   const campgrounds = await Campground.findByIdAndUpdate(id, {
     impressionCount: campground.impressionCount + 1,
@@ -73,12 +74,11 @@ module.exports.showCampground = async (req, res) => {
   const temp_c = response.data.current.temp_c;
   const temp_f = response.data.current.temp_f;
   const i = response.data.current.condition.icon;
-
   if (!campground) {
     req.flash("error", "Cannot find that campground!");
     return res.redirect("/campgrounds");
   }
-  res.render("campgrounds/show", { campground, temp_c, temp_f, i,wa });
+  res.render("campgrounds/show", { campground, temp_c, temp_f, i,wa, te, fullUrl });
 };
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
