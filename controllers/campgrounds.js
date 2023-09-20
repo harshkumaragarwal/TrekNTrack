@@ -68,18 +68,13 @@ module.exports.showCampground = async (req, res) => {
   });
   await campgrounds.save();
   const place = campground.location;
-  const response = await axios(
-    `https://api.weatherapi.com/v1/current.json?q=${place}&aqi=no&key=1b8676ab83734bf88d592311210410`
-  );
 
-  const temp_c = response.data.current.temp_c;
-  const temp_f = response.data.current.temp_f;
   const i = response.data.current.condition.icon;
   if (!campground) {
     req.flash("error", "Cannot find that campground!");
     return res.redirect("/campgrounds");
   }
-  res.render("campgrounds/show", { campground, temp_c, temp_f, i,wa, te, fullUrl });
+  res.render("campgrounds/show", { campground,wa, te, fullUrl });
 };
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
