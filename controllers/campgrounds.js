@@ -14,8 +14,10 @@ const { cloudinary } = require("../cloudinary");
 const Review = require("../models/review");
 module.exports.index = async (req, res) => {
   const campgrounds = await Campground.find({}).populate("popupText");
+
   // console.log(campgrounds.avgRating);
   res.render("campgrounds/index", { campgrounds });
+  res.render("campgrounds/index",  { campgrounds });
 };
 
 module.exports.indexSorted = async (req, res) => {
