@@ -60,8 +60,18 @@ module.exports.showCampground = async (req, res) => {
     const port = process.env.PORT || PORT;
     const fullUrl = `${protocol}://${host}${url}`;
   const wa = "whatsapp://send?text=Come and check " + campground.title + " 🤗, a beautiful place😌. " + "Do comment and rate my camps😉.%0a" + fullUrl; 
+<<<<<<< HEAD
   const te = "Come and check " + campground.title + " 🤗, a beautiful place😌. " + "Do comment and rate my camps😉.%0a" + fullUrl;
   console.log(fullUrl);
+=======
+  const te =
+    "Come and check " +
+    campground.title +
+    " 🤗, a beautiful place😌. " +
+    "Do comment and rate my camps😉.%0a" +
+    fullUrl;
+
+>>>>>>> 37a10ee (commit)
   const { id } = req.params;
   const campgrounds = await Campground.findByIdAndUpdate(id, {
     impressionCount: campground.impressionCount + 1,
@@ -69,12 +79,65 @@ module.exports.showCampground = async (req, res) => {
   await campgrounds.save();
   const place = campground.location;
 
+<<<<<<< HEAD
   const i = response.data.current.condition.icon;
+=======
+const apiKey = "378da041b4f297aa7ab609ee83355815";
+const cityName = place; // Replace with the name of the city you want to get weather data for
+
+// Declare global variables to store temperature and weather icon
+let temperatureCelsius;
+let weatherIconUrl;
+let x = 0;
+const response = await axios
+  .get(
+    `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`
+  )
+  .catch(function (error) {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      x = 1;
+    }
+  });
+if (x == 0) {
+  const temperatureKelvin = response.data.main.temp;
+
+  // Convert Kelvin to Celsius (optional)
+  temperatureCelsius = (temperatureKelvin - 273.15).toFixed(2);
+
+  // Get the weather icon code from the API response
+  const weatherIconCode = response.data.weather[0].icon;
+
+  // Construct the URL for the weather icon image
+  weatherIconUrl = `https://openweathermap.org/img/w/${weatherIconCode}.png`;
+}
+
+  // const response = await axios(
+  //   `https://api.weatherapi.com/v1/current.json?q=${place}&aqi=no&key=1b8676ab83734bf88d592311210410`
+  // );
+
+  // const temp_c = response.data.current.temp_c;
+  // const temp_f = response.data.current.temp_f;
+  // const i = response.data.current.condition.icon;
+>>>>>>> 37a10ee (commit)
   if (!campground) {
     req.flash("error", "Cannot find that campground!");
     return res.redirect("/campgrounds");
   }
+<<<<<<< HEAD
   res.render("campgrounds/show", { campground,wa, te, fullUrl });
+=======
+ res.render("campgrounds/show", {
+   campground,
+   wa,
+   weatherIconUrl,
+   temperatureCelsius,
+   te,
+   x,
+   fullUrl,
+ });
+>>>>>>> 37a10ee (commit)
 };
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;

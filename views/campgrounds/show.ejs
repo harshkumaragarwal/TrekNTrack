@@ -85,8 +85,17 @@
           Submitted by <%= campground.author.username%>
         </li>
         <li class="list-group-item">₹<%= campground.price%>/night</li>
+<<<<<<< HEAD
 
        
+=======
+        <%if(x == 0){%>
+        <li class="list-group-item">
+          Current Temperature : <%= temperatureCelsius%>°C
+          <img src="<%= weatherIconUrl%>" alt="" />
+        </li>
+        <%}%>
+>>>>>>> 37a10ee (commit)
       </ul>
       <% if( currentUser && campground.author.equals(currentUser._id)) {%>
       <div class="card-body">
