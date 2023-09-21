@@ -5,8 +5,10 @@ const axios = require("axios");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 =======
 const axios = require('axios') 
+
 const mapBoxToken = process.env.MAPBOX_TOKEN ; 
->>>>>>> e73ef1c (testing)
+
+const mapBoxToken  = process.env.MAPBOX_TOKEN ; 
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
 const Review = require("../models/review");
