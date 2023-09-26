@@ -15,6 +15,7 @@ module.exports.createReview = async (req, res) => {
   review.author = req.user._id;
   campground.reviews.push(review);
   let x = ratings.length;
+  // console.log(x);
 
   for (let i = 0; i < x ; i++)
     average += ratings[i];
