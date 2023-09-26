@@ -1,4 +1,3 @@
-const { randomInt } = require("crypto");
 const Campground = require("../models/campground");
 const Review = require("../models/review");
 const review = require("../models/review");
@@ -31,7 +30,7 @@ module.exports.createReview = async (req, res) => {
 
 module.exports.deleteReview = async (req, res) => {
   const { id, reviewId } = req.params;
-  // const campgroundd = await Campground.findById(req.params.id);
+  const rating = (await Review.findById(reviewId)).rating;
    const campground = await Campground.findById(req.params.id).populate(
      "reviews"
    );
@@ -39,7 +38,7 @@ module.exports.deleteReview = async (req, res) => {
   
   const ratings = campground.reviews.map((review) => review.rating);
   
-  const rating = (await Review.findById(reviewId)).rating;
+  
   let average = 0;
   let x = ratings.length;
 
